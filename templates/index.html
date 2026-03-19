@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Truck Cargo Optimizer</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; flex-direction: column; height: 100vh; background: #343a40; }
+        header { background: #1a2a3a; color: white; padding: 15px; text-align: center; font-size: 1.2rem; font-weight: bold; border-bottom: 1px solid #444; }
+        .main-layout { display: flex; flex: 1; overflow: hidden; }
+        .controls { width: 360px; background: white; padding: 25px; border-right: 1px solid #ccc; overflow-y: auto; }
+        .viewer { flex: 1; padding: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: auto; }
+
+        #truckCanvas { background: white; border-radius: 4px; box-shadow: 0 0 40px rgba(0,0,0,0.6); }
+        .input-group { margin-bottom: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 5px solid #007bff; }
+
+        label { display: block; font-size: 12px; font-weight: bold; color: #333; margin-top: 5px; }
+        input { padding: 8px; width: 80px; border: 1px solid #ddd; border-radius: 4px; }
+
+        .status-msg { margin-top: 20px; padding: 15px; border-radius: 5px; font-weight: bold; font-size: 14px; display: none; }
+        .warning { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; display: block; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; display: block; }
+
+        .footer-note { margin-top: 15px; color: #adb5bd; font-size: 13px; text-align: center; }
+
+        button { cursor: pointer; padding: 12px; border: none; border-radius: 4px; width: 100%; font-weight: bold; margin-top: 10px; transition: 0.3s; }
+        .btn-add { background: #6c757d; color: white; }
+        .btn-calc { background: #28a745; color: white; font-size: 1.1rem; }
+        button:hover { opacity: 0.8; }
+    </style>
+</head>
+<body>
+    <header>Truck Cargo Optimizer</header>
+    <div class="main-layout">
+        <div class="controls">
+            <h3>Truck Dimensions (m)</h3>
+            <div style="display: flex; gap: 10px;">
+                <div><label>Length</label><input type="number" id="tLength" value="4.3" step="0.1"></div>
+                <div><label>Width</label><input type="number" id="tWidth" value="2.1" step="0.1"></div>
+            </div>
+
+            <h3 style="margin-top:30px;">Cargo List</h3>
+            <div id="cargoList">
+                <div class="input-group">
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <div><label>Qty</label><input type="number" class="pQty" value="1" step="1"></div>
+                        <div><label>Length (m)</label><input type="number" class="pL" value="1.2" step="0.1"></div>
+                        <div><label>Width (m)</label><input type="number" class="pW" value="0.8" step="0.1"></div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-add" onclick="addCargoInput()">+ Add Cargo Type</button>
+            <button class="btn-calc" onclick="calculate()">OPTIMIZE LOAD</button>
+
+            <div id="statusBox" class="status-msg"></div>
+        </div>
+
+        <div class="viewer">
+            <canvas id="truckCanvas"></canvas>
+            <div class="footer-note">
+                All dimensions are in meters. Numbers correspond to Cargo Type ID.
+            </div>
+        </div>
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>
